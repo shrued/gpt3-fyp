@@ -1,9 +1,12 @@
+import Layout from "./components/layout";
 import Story from "./components/story";
 
 export default function React() {
   return (
     <>
-      <Story />
+      <Layout>
+        <Story />
+      </Layout>
     </>
   );
 }
