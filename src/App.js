@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -35,7 +34,7 @@ function App() {
       });
   };
   return (
-    <div className="App">
+    <div>
       <form onSubmit={onFormSubmit}>
         <label>
           Enter {/* prompt */} genre
