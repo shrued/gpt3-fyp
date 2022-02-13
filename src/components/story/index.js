@@ -1,94 +1,200 @@
 import { useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
+import validator from "validator";
+import { Container, Division } from "./story";
 
 const { Configuration, OpenAIApi } = require("openai");
 
 export default function Story() {
-  const [input, setInput] = useState("");
-  const [response, setResponse] = useState(
+  const [storyResponse, setStoryResponse] = useState(
     "Your short story will show up here."
   );
-  const [loading, setLoading] = useState(false);
+  const [translatedResponse, setTranslatedResponse] = useState(
+    "Your translated short story will show up here."
+  );
+  const [storyLoading, setStoryLoading] = useState(false);
   const [valid, setValid] = useState(true);
+  const [translationLoading, setTranslationLoading] = useState(false);
 
   const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
+  const configuration = new Configuration({
+    apiKey: API_KEY,
+  });
+  const openai = new OpenAIApi(configuration);
 
-  const onFormSubmit = (e) => {
+  const onGenreSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    const formData = new FormData(e.target),
-      formDataObj = Object.fromEntries(formData.entries());
+    setStoryLoading(true);
+    const genreData = new FormData(e.target),
+      genreDataObj = Object.fromEntries(genreData.entries());
 
-    if (formDataObj.genre === "") {
-      setValid(false);
-      setLoading(false);
-    } else {
-      setValid(true);
-      const configuration = new Configuration({
-        apiKey: API_KEY,
+    setValid(true);
+
+    openai
+      .createCompletion("text-davinci-001", {
+        prompt: `Write a ${genreDataObj.genre} short story:`,
+        temperature: 1,
+        max_tokens: 1000,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      })
+      .then((response) => {
+        console.log(response);
+        setStoryResponse(response.data.choices[0].text);
+        setStoryLoading(false);
       });
-      const openai = new OpenAIApi(configuration);
-
-      openai
-        .createCompletion("text-davinci-001", {
-          prompt: `Write a ${formDataObj.genre} short story:`,
-          temperature: 1,
-          max_tokens: 1000,
-          top_p: 1,
-          frequency_penalty: 0,
-          presence_penalty: 0,
-        })
-        .then((response) => {
-          setInput(formDataObj.genre);
-          setResponse(response.data.choices[0].text);
-          setLoading(false);
-        });
-    }
   };
+
+  const onLanguageSubmit = (e) => {
+    e.preventDefault();
+    setTranslationLoading(true);
+    const languageData = new FormData(e.target),
+      languageDataObj = Object.fromEntries(languageData.entries());
+
+    const theStory = "#" + validator.trim(storyResponse) + "#";
+
+    const check = `Translate to ${languageDataObj.language}:\n\n${theStory}`;
+    console.log(check);
+
+    openai
+      .createCompletion("text-davinci-001", {
+        prompt: `Translate to ${languageDataObj.language}:\n\n${theStory}`,
+        temperature: 0,
+        max_tokens: 1000,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      })
+      .then((response) => {
+        console.log(response);
+        setTranslatedResponse(response.data.choices[0].text);
+        setTranslationLoading(false);
+      });
+  };
+
   return (
-    <div className="p-5 d-flex flex-column">
-      <p>Enter a genre and have GPT3 generate a short story for you.</p>
+    <Container>
+      <Division className="p-4">
+        <p>Choose a genre and have GPT3 generate a short story for you.</p>
 
-      <Form onSubmit={onFormSubmit}>
-        <Form.Group>
-          <Form.Label>
-            <Form.Control
-              type="text"
+        <Form onSubmit={onGenreSubmit}>
+          <Form.Group>
+            <Form.Select
+              style={{ maxWidth: "40%", marginBottom: "20px" }}
               name="genre"
-              placeholder="Enter a genre"
-            />
-          </Form.Label>
-        </Form.Group>
-        {loading ? (
-          <Spinner animation="border" variant="success" />
-        ) : (
-          <Button variant="success" type="submit" value="submit">
-            Generate
-          </Button>
-        )}
-      </Form>
-
-      {!valid ? (
-        <>
-          <Alert className="mt-4" variant="danger">
-            Genre cannot be empty.
-          </Alert>
-        </>
-      ) : null}
-
-      <Card className="my-4">
-        <Card.Body>
-          {loading ? (
-            <>
-              <Spinner animation="grow" size="sm" />{" "}
-              <Spinner animation="grow" size="sm" />{" "}
-              <Spinner animation="grow" size="sm" />{" "}
-            </>
+            >
+              {[
+                "Action",
+                "Adventure",
+                "Dark humor",
+                "Drama",
+                "Fairytale",
+                "Fantasy",
+                "Fiction",
+                "Folklore",
+                "Historical Fiction",
+                "Horror",
+                "Humor",
+                "Mystery",
+                "Mythology",
+                "Nonfiction",
+                "Poetry",
+                "Romance",
+                "Science Fiction",
+                "Thriller",
+              ].map((option, idx) => (
+                <option key={idx}>{option}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+          {storyLoading ? (
+            <Spinner animation="border" variant="success" />
           ) : (
-            <p>{response}</p>
+            <Button variant="success" type="submit" value="submit">
+              Generate
+            </Button>
           )}
-        </Card.Body>
-      </Card>
-    </div>
+        </Form>
+
+        <Card className="my-4">
+          <Card.Body>
+            {storyLoading ? (
+              <>
+                <Spinner animation="grow" size="sm" />{" "}
+                <Spinner animation="grow" size="sm" />{" "}
+                <Spinner animation="grow" size="sm" />{" "}
+              </>
+            ) : (
+              <p>{storyResponse}</p>
+            )}
+          </Card.Body>
+        </Card>
+      </Division>
+      <Division className="p-4">
+        <p>
+          Choose a language and have GPT3 translate the short story for you.
+        </p>
+
+        <Form onSubmit={onLanguageSubmit}>
+          <Form.Group>
+            <Form.Select
+              style={{ maxWidth: "40%", marginBottom: "20px" }}
+              name="language"
+            >
+              {[
+                "Arabic",
+                "Bengali",
+                "French",
+                "German",
+                "Greek",
+                // "Hindi",
+                "Indonesian",
+                "Italian",
+                "Japanese",
+                "Korean",
+                "Mandarin",
+                "Portuguese",
+                "Russian",
+                "Spanish",
+                // "Tamil",
+              ].map((option, idx) => (
+                <option key={idx}>{option}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+          {translationLoading ? (
+            <Spinner animation="border" variant="success" />
+          ) : (
+            <Button
+              variant="success"
+              type="submit"
+              value="submit"
+              disabled={
+                storyResponse === "Your short story will show up here."
+                  ? "true"
+                  : null
+              }
+            >
+              Translate
+            </Button>
+          )}
+        </Form>
+
+        <Card className="my-4">
+          <Card.Body>
+            {translationLoading ? (
+              <>
+                <Spinner animation="grow" size="sm" />{" "}
+                <Spinner animation="grow" size="sm" />{" "}
+                <Spinner animation="grow" size="sm" />{" "}
+              </>
+            ) : (
+              <p>{translatedResponse}</p>
+            )}
+          </Card.Body>
+        </Card>
+      </Division>
+    </Container>
   );
 }
