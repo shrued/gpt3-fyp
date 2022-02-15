@@ -41,5 +41,5 @@ export const BigText = styled.p`
 `;
 
 export const Heading = styled.p`
-  font-size: 50px;
+  font-size: 35px;
 `;
