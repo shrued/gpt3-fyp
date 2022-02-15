@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import validator from "validator";
-import { BigDivision, Container, SmallDivision } from "./story";
+import {
+  BigDivision,
+  BigText,
+  Container,
+  Heading,
+  SmallDivision,
+} from "./story";
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -76,9 +82,15 @@ export default function Story() {
   return (
     <>
       <Container>
-        <SmallDivision className="green-overlay">Hey</SmallDivision>
+        <SmallDivision className="green-overlay">
+          <BigText>How does this work?</BigText>
+          You input a genre as a prompt, and the GPT-3 model will generate a
+          text completion that attempts to match whatever context (in this case,
+          a genre) you gave it.
+        </SmallDivision>
         <BigDivision className="p-4">
-          <p>Choose a genre and have GPT3 generate a short story for you.</p>
+          <Heading>Short Story Generation</Heading>
+          <p>Choose a genre and have GPT-3 generate a short story for you.</p>
 
           <Form onSubmit={onGenreSubmit}>
             <Form.Group>
@@ -136,8 +148,9 @@ export default function Story() {
       </Container>
       <Container>
         <BigDivision className="p-4">
+          <Heading>Short Story Translation</Heading>
           <p>
-            Choose a language and have GPT3 translate the short story for you.
+            Choose a language and have GPT-3 translate the short story for you.
           </p>
 
           <Form onSubmit={onLanguageSubmit}>
@@ -199,7 +212,11 @@ export default function Story() {
             </Card.Body>
           </Card>
         </BigDivision>
-        <SmallDivision className="green-overlay">Hey</SmallDivision>
+        <SmallDivision className="green-overlay">
+          <BigText>Translator.</BigText>
+          GPT-3 is capable of translating to and from a variety of languages,
+          knows billions of words.
+        </SmallDivision>
       </Container>
     </>
   );

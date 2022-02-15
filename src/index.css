@@ -15,15 +15,15 @@ code {
     monospace;
 }
 
-/* #25d29e green
-   #524857 purple */
+/* #25d29e green 48, 139, 123,
+   #524857 purple 69, 54, 77*/
 
 .buttons {
   color: #0032fb;
 }
 
 .card {
-  background: rgb(38, 110, 97, 0.5) !important;
+  background: rgba(34, 41, 39, 0.7) !important;
   color: #f9fafb !important;
 }
 
@@ -42,7 +42,7 @@ code {
 }
 
 .green-overlay {
-  background-color: #42bf7d;
+  background-color: #5414fb;
 }
 
 .header-after {

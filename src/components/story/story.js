@@ -12,7 +12,12 @@ export const Container = styled.div`
 
 export const SmallDivision = styled.div`
   width: 30%;
-  height: 100vh;
+  height: 92vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 900px) {
     width: 100%;
@@ -21,9 +26,20 @@ export const SmallDivision = styled.div`
 
 export const BigDivision = styled.div`
   width: 70%;
-  height: 100vh;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   @media (max-width: 900px) {
     width: 100%;
   }
+`;
+
+export const BigText = styled.p`
+  font-size: 40px;
+`;
+
+export const Heading = styled.p`
+  font-size: 50px;
 `;
