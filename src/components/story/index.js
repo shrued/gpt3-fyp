@@ -82,7 +82,7 @@ export default function Story() {
   return (
     <>
       <Container>
-        <SmallDivision className="green-overlay">
+        <SmallDivision className="page-overlay">
           <BigText>How does this work?</BigText>
           You input a genre as a prompt, and the GPT-3 model will generate a
           text completion that attempts to match whatever context (in this case,
@@ -212,7 +212,7 @@ export default function Story() {
             </Card.Body>
           </Card>
         </BigDivision>
-        <SmallDivision className="green-overlay">
+        <SmallDivision className="page-overlay">
           <BigText>Translator.</BigText>
           GPT-3 is capable of translating to and from a variety of languages,
           knows billions of words.
