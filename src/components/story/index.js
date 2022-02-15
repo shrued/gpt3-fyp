@@ -109,9 +109,9 @@ export default function Story() {
             </Form.Select>
           </Form.Group>
           {storyLoading ? (
-            <Spinner animation="border" variant="success" />
+            <Spinner animation="border" style={{ color: "#0032fb" }} />
           ) : (
-            <Button variant="success" type="submit" value="submit">
+            <Button className="buttons" type="submit" value="submit">
               Generate
             </Button>
           )}
@@ -164,10 +164,10 @@ export default function Story() {
             </Form.Select>
           </Form.Group>
           {translationLoading ? (
-            <Spinner animation="border" variant="success" />
+            <Spinner animation="border" style={{ color: "#0032fb" }} />
           ) : (
             <Button
-              variant="success"
+              className="buttons"
               type="submit"
               value="submit"
               disabled={
