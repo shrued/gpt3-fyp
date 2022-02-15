@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import validator from "validator";
-import { Container, Division } from "./story";
+import { BigDivision, Container, SmallDivision } from "./story";
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -74,127 +74,133 @@ export default function Story() {
   };
 
   return (
-    <Container>
-      <Division className="p-4">
-        <p>Choose a genre and have GPT3 generate a short story for you.</p>
+    <>
+      <Container>
+        <SmallDivision className="green-overlay">Hey</SmallDivision>
+        <BigDivision className="p-4">
+          <p>Choose a genre and have GPT3 generate a short story for you.</p>
 
-        <Form onSubmit={onGenreSubmit}>
-          <Form.Group>
-            <Form.Select
-              style={{ maxWidth: "40%", marginBottom: "20px" }}
-              name="genre"
-            >
-              {[
-                "Action",
-                "Adventure",
-                "Dark humor",
-                "Drama",
-                "Fairytale",
-                "Fantasy",
-                "Fiction",
-                "Folklore",
-                "Historical Fiction",
-                "Horror",
-                "Humor",
-                "Mystery",
-                "Mythology",
-                "Nonfiction",
-                "Poetry",
-                "Romance",
-                "Science Fiction",
-                "Thriller",
-              ].map((option, idx) => (
-                <option key={idx}>{option}</option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-          {storyLoading ? (
-            <Spinner animation="border" style={{ color: "#0032fb" }} />
-          ) : (
-            <Button className="buttons" type="submit" value="submit">
-              Generate
-            </Button>
-          )}
-        </Form>
-
-        <Card className="my-4">
-          <Card.Body>
+          <Form onSubmit={onGenreSubmit}>
+            <Form.Group>
+              <Form.Select
+                style={{ maxWidth: "40%", marginBottom: "20px" }}
+                name="genre"
+              >
+                {[
+                  "Action",
+                  "Adventure",
+                  "Dark humor",
+                  "Drama",
+                  "Fairytale",
+                  "Fantasy",
+                  "Fiction",
+                  "Folklore",
+                  "Historical Fiction",
+                  "Horror",
+                  "Humor",
+                  "Mystery",
+                  "Mythology",
+                  "Nonfiction",
+                  "Poetry",
+                  "Romance",
+                  "Science Fiction",
+                  "Thriller",
+                ].map((option, idx) => (
+                  <option key={idx}>{option}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
             {storyLoading ? (
-              <>
-                <Spinner animation="grow" size="sm" />{" "}
-                <Spinner animation="grow" size="sm" />{" "}
-                <Spinner animation="grow" size="sm" />{" "}
-              </>
+              <Spinner animation="border" style={{ color: "#0032fb" }} />
             ) : (
-              <p>{storyResponse}</p>
+              <Button className="buttons" type="submit" value="submit">
+                Generate
+              </Button>
             )}
-          </Card.Body>
-        </Card>
-      </Division>
-      <Division className="p-4">
-        <p>
-          Choose a language and have GPT3 translate the short story for you.
-        </p>
+          </Form>
 
-        <Form onSubmit={onLanguageSubmit}>
-          <Form.Group>
-            <Form.Select
-              style={{ maxWidth: "40%", marginBottom: "20px" }}
-              name="language"
-            >
-              {[
-                "Arabic",
-                "Bengali",
-                "French",
-                "German",
-                "Greek",
-                // "Hindi",
-                "Indonesian",
-                "Italian",
-                "Japanese",
-                "Korean",
-                "Mandarin",
-                "Portuguese",
-                "Russian",
-                "Spanish",
-                // "Tamil",
-              ].map((option, idx) => (
-                <option key={idx}>{option}</option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-          {translationLoading ? (
-            <Spinner animation="border" style={{ color: "#0032fb" }} />
-          ) : (
-            <Button
-              className="buttons"
-              type="submit"
-              value="submit"
-              disabled={
-                storyResponse === "Your short story will show up here."
-                  ? "true"
-                  : null
-              }
-            >
-              Translate
-            </Button>
-          )}
-        </Form>
+          <Card className="my-4">
+            <Card.Body>
+              {storyLoading ? (
+                <>
+                  <Spinner animation="grow" size="sm" />{" "}
+                  <Spinner animation="grow" size="sm" />{" "}
+                  <Spinner animation="grow" size="sm" />{" "}
+                </>
+              ) : (
+                <p>{storyResponse}</p>
+              )}
+            </Card.Body>
+          </Card>
+        </BigDivision>
+      </Container>
+      <Container>
+        <BigDivision className="p-4">
+          <p>
+            Choose a language and have GPT3 translate the short story for you.
+          </p>
 
-        <Card className="my-4">
-          <Card.Body>
+          <Form onSubmit={onLanguageSubmit}>
+            <Form.Group>
+              <Form.Select
+                style={{ maxWidth: "40%", marginBottom: "20px" }}
+                name="language"
+              >
+                {[
+                  "Arabic",
+                  "Bengali",
+                  "French",
+                  "German",
+                  "Greek",
+                  // "Hindi",
+                  "Indonesian",
+                  "Italian",
+                  "Japanese",
+                  "Korean",
+                  "Mandarin",
+                  "Portuguese",
+                  "Russian",
+                  "Spanish",
+                  // "Tamil",
+                ].map((option, idx) => (
+                  <option key={idx}>{option}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
             {translationLoading ? (
-              <>
-                <Spinner animation="grow" size="sm" />{" "}
-                <Spinner animation="grow" size="sm" />{" "}
-                <Spinner animation="grow" size="sm" />{" "}
-              </>
+              <Spinner animation="border" style={{ color: "#0032fb" }} />
             ) : (
-              <p>{translatedResponse}</p>
+              <Button
+                className="buttons"
+                type="submit"
+                value="submit"
+                disabled={
+                  storyResponse === "Your short story will show up here."
+                    ? "true"
+                    : null
+                }
+              >
+                Translate
+              </Button>
             )}
-          </Card.Body>
-        </Card>
-      </Division>
-    </Container>
+          </Form>
+
+          <Card className="my-4">
+            <Card.Body>
+              {translationLoading ? (
+                <>
+                  <Spinner animation="grow" size="sm" />{" "}
+                  <Spinner animation="grow" size="sm" />{" "}
+                  <Spinner animation="grow" size="sm" />{" "}
+                </>
+              ) : (
+                <p>{translatedResponse}</p>
+              )}
+            </Card.Body>
+          </Card>
+        </BigDivision>
+        <SmallDivision className="green-overlay">Hey</SmallDivision>
+      </Container>
+    </>
   );
 }

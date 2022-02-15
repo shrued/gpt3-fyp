@@ -10,9 +10,18 @@ export const Container = styled.div`
   }
 `;
 
-export const Division = styled.div`
-  display: inline-block;
-  width: 50%;
+export const SmallDivision = styled.div`
+  width: 30%;
+  height: 100vh;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+`;
+
+export const BigDivision = styled.div`
+  width: 70%;
+  height: 100vh;
 
   @media (max-width: 900px) {
     width: 100%;

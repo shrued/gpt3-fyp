@@ -1,11 +1,12 @@
 body {
+  padding-top: 55px;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #020406 !important;
+  background-color: #030508 !important;
   color: #f9fafb !important;
 }
 
@@ -14,7 +15,9 @@ code {
     monospace;
 }
 
-/* #25d29e green */
+/* #25d29e green
+   #524857 purple */
+
 .buttons {
   color: #0032fb;
 }
@@ -36,4 +39,20 @@ code {
 
 .form-select-color {
   background-color: yellow !important;
+}
+
+.green-overlay {
+  background-color: #42bf7d;
+}
+
+.header-after {
+  background: hsl(210, 50%, 2%, 0.3) !important;
+  backdrop-filter: blur(60px) !important;
+  width: 100%;
+  padding: 10px;
+}
+
+.navbar .container {
+  margin: 0;
+  padding: 0;
 }
