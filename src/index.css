@@ -16,10 +16,13 @@ code {
 }
 
 /* #25d29e green 48, 139, 123,
-   #524857 purple 69, 54, 77*/
+   #524857 purple 69, 54, 77
+   rgb(209, 213, 12) yellowish-green
+   rgba(35, 156, 158, 0.75) dark teal
+   */
 
 .buttons {
-  color: #0032fb;
+  /* background-color: #0032fb; */
 }
 
 .card {
@@ -46,8 +49,9 @@ code {
 }
 
 .header-after {
-  background: hsl(210, 50%, 2%, 0.3) !important;
-  backdrop-filter: blur(60px) !important;
+  /* background: hsl(210, 50%, 2%, 0.3) !important;
+  backdrop-filter: blur(60px) !important; */
+  background-color: black;
   width: 100%;
   padding: 10px;
 }
