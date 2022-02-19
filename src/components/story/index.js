@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import validator from "validator";
 import {
@@ -7,6 +7,7 @@ import {
   Container,
   Heading,
   SmallDivision,
+  StoryContainer,
 } from "./story";
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -22,6 +23,10 @@ export default function Story() {
   const [valid, setValid] = useState(true);
   const [translationLoading, setTranslationLoading] = useState(false);
 
+  useEffect(() => {
+    document.getElementById("story-section").scrollIntoView();
+  }, [storyResponse]);
+
   const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
   const configuration = new Configuration({
     apiKey: API_KEY,
@@ -36,11 +41,14 @@ export default function Story() {
 
     setValid(true);
 
+    const check = `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names}:`;
+    console.log(check);
+
     openai
       .createCompletion("text-davinci-001", {
-        prompt: `Write a ${genreDataObj.genre} short story:`,
+        prompt: `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names}:`,
         temperature: 1,
-        max_tokens: 500,
+        max_tokens: 1000,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
@@ -67,7 +75,7 @@ export default function Story() {
       .createCompletion("text-davinci-001", {
         prompt: `Translate to ${languageDataObj.language}:\n\n${theStory}`,
         temperature: 0,
-        max_tokens: 500,
+        max_tokens: 1000,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
@@ -94,6 +102,7 @@ export default function Story() {
 
           <Form onSubmit={onGenreSubmit}>
             <Form.Group>
+              <Form.Label>Pick a genre</Form.Label>
               <Form.Select
                 style={{ maxWidth: "40%", marginBottom: "20px" }}
                 name="genre"
@@ -122,6 +131,31 @@ export default function Story() {
                 ))}
               </Form.Select>
             </Form.Group>
+            <Form.Group>
+              <Form.Label>How many characters do you want?</Form.Label>
+              <Form.Select
+                style={{ maxWidth: "40%", marginBottom: "20px" }}
+                name="characters"
+              >
+                {["1", "2", "3", "4", "5"].map((option, idx) => (
+                  <option key={idx}>{option}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>
+                Enter the names of your characters separated by commas
+              </Form.Label>
+              <Form.Control
+                style={{ maxWidth: "40%", marginBottom: "20px" }}
+                type="text"
+                name="names"
+                placeholder="Fen, Jake, Darren"
+              />
+              <Form.Text className="text-muted">
+                Example: Fen, Jake, Darren
+              </Form.Text>
+            </Form.Group>
             {storyLoading ? (
               <Spinner animation="border" style={{ color: "#0032fb" }} />
             ) : (
@@ -130,7 +164,10 @@ export default function Story() {
               </Button>
             )}
           </Form>
-
+        </BigDivision>
+      </Container>
+      <Container id="story-section">
+        <StoryContainer>
           <Card className="my-4">
             <Card.Body>
               {storyLoading ? (
@@ -144,7 +181,7 @@ export default function Story() {
               )}
             </Card.Body>
           </Card>
-        </BigDivision>
+        </StoryContainer>
       </Container>
       <Container>
         <BigDivision className="p-4">

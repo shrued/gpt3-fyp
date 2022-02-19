@@ -40,6 +40,12 @@ code {
   color: #f9fafb !important;
 }
 
+.form-control {
+  background-color: #1c1c1c !important;
+  border: none !important;
+  color: #f9fafb !important;
+}
+
 .form-select-color {
   background-color: yellow !important;
 }

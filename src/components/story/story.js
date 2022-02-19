@@ -43,3 +43,7 @@ export const BigText = styled.p`
 export const Heading = styled.p`
   font-size: 35px;
 `;
+
+export const StoryContainer = styled.div`
+  margin: 20px;
+`;
