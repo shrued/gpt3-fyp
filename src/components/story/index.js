@@ -40,7 +40,7 @@ export default function Story() {
       .createCompletion("text-davinci-001", {
         prompt: `Write a ${genreDataObj.genre} short story:`,
         temperature: 1,
-        max_tokens: 1000,
+        max_tokens: 500,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
@@ -67,7 +67,7 @@ export default function Story() {
       .createCompletion("text-davinci-001", {
         prompt: `Translate to ${languageDataObj.language}:\n\n${theStory}`,
         temperature: 0,
-        max_tokens: 1000,
+        max_tokens: 500,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
