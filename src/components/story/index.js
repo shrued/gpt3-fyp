@@ -170,13 +170,18 @@ export default function Story() {
                 Example: Fen, Jake, Darren
               </Form.Text>
             </Form.Group>
-            {storyLoading ? (
-              <Spinner animation="border" style={{ color: "#0032fb" }} />
-            ) : (
-              <Button className="buttons" type="submit" value="submit">
-                Generate
-              </Button>
-            )}
+
+            <Button className="buttons" type="submit" value="submit">
+              Generate{" "}
+              {storyLoading ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  style={{ fontSize: "10px" }}
+                />
+              ) : null}
+            </Button>
           </Form>
           <ArrowSection>
             <ChevronDoubleDown size={30} onClick={scrollToStory} />
@@ -232,22 +237,26 @@ export default function Story() {
                 ))}
               </Form.Select>
             </Form.Group>
-            {translationLoading ? (
-              <Spinner animation="border" style={{ color: "#0032fb" }} />
-            ) : (
-              <Button
-                className="buttons"
-                type="submit"
-                value="submit"
-                disabled={
-                  storyResponse === "Your short story will show up here."
-                    ? "true"
-                    : null
-                }
-              >
-                Translate
-              </Button>
-            )}
+            <Button
+              className="buttons"
+              type="submit"
+              value="submit"
+              disabled={
+                storyResponse === "Your short story will show up here."
+                  ? "true"
+                  : null
+              }
+            >
+              Translate{" "}
+              {translationLoading ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  style={{ fontSize: "10px" }}
+                />
+              ) : null}
+            </Button>
           </Form>
 
           <Card className="my-4">
