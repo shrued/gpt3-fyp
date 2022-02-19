@@ -42,8 +42,30 @@ export const BigText = styled.p`
 
 export const Heading = styled.p`
   font-size: 35px;
+
+  @media (max-width: 900px) {
+    font-size: 25px;
+  }
+`;
+
+export const Subtitle = styled.p`
+  font-size: 20px;
+
+  @media (max-width: 900px) {
+    font-size: 15px;
+  }
 `;
 
 export const StoryContainer = styled.div`
   margin: 20px;
+`;
+
+export const ArrowSection = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

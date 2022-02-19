@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
-import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
+import { useEffect, useRef, useState } from "react";
+import { Button, Card, Form, Spinner } from "react-bootstrap";
+import { ChevronDoubleDown } from "react-bootstrap-icons";
 import validator from "validator";
 import {
+  ArrowSection,
   BigDivision,
   BigText,
   Container,
   Heading,
   SmallDivision,
   StoryContainer,
+  Subtitle,
 } from "./story";
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -22,10 +25,22 @@ export default function Story() {
   const [storyLoading, setStoryLoading] = useState(false);
   const [valid, setValid] = useState(true);
   const [translationLoading, setTranslationLoading] = useState(false);
+  const [scrollChecker, setScrollChecker] = useState();
+
+  const mountedRef = useRef();
 
   useEffect(() => {
+    if (mountedRef.current)
+      document.getElementById("story-section").scrollIntoView();
+  }, [scrollChecker]);
+
+  useEffect(() => {
+    mountedRef.current = true;
+  });
+
+  const scrollToStory = () => {
     document.getElementById("story-section").scrollIntoView();
-  }, [storyResponse]);
+  };
 
   const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
   const configuration = new Configuration({
@@ -57,6 +72,7 @@ export default function Story() {
         console.log(response);
         setStoryResponse(response.data.choices[0].text);
         setStoryLoading(false);
+        setScrollChecker(true);
       });
   };
 
@@ -96,17 +112,16 @@ export default function Story() {
           text completion that attempts to match whatever context (in this case,
           a genre) you gave it.
         </SmallDivision>
-        <BigDivision className="p-4">
+        <BigDivision className="px-4 py-6">
           <Heading>Short Story Generation</Heading>
-          <p>Choose a genre and have GPT-3 generate a short story for you.</p>
+          <Subtitle>
+            Choose a genre and have GPT-3 generate a short story for you.
+          </Subtitle>
 
           <Form onSubmit={onGenreSubmit}>
-            <Form.Group>
-              <Form.Label>Pick a genre</Form.Label>
-              <Form.Select
-                style={{ maxWidth: "40%", marginBottom: "20px" }}
-                name="genre"
-              >
+            <Form.Group className="pb-3">
+              <Form.Label className="input-title">Pick a genre</Form.Label>
+              <Form.Select className="w-auto" name="genre">
                 {[
                   "Action",
                   "Adventure",
@@ -131,23 +146,22 @@ export default function Story() {
                 ))}
               </Form.Select>
             </Form.Group>
-            <Form.Group>
-              <Form.Label>How many characters do you want?</Form.Label>
-              <Form.Select
-                style={{ maxWidth: "40%", marginBottom: "20px" }}
-                name="characters"
-              >
+            <Form.Group className="pb-3">
+              <Form.Label className="input-title">
+                How many characters do you want?
+              </Form.Label>
+              <Form.Select className="w-auto" name="characters">
                 {["1", "2", "3", "4", "5"].map((option, idx) => (
                   <option key={idx}>{option}</option>
                 ))}
               </Form.Select>
             </Form.Group>
-            <Form.Group>
-              <Form.Label>
+            <Form.Group className="pb-3">
+              <Form.Label className="input-title">
                 Enter the names of your characters separated by commas
               </Form.Label>
               <Form.Control
-                style={{ maxWidth: "40%", marginBottom: "20px" }}
+                className="w-auto"
                 type="text"
                 name="names"
                 placeholder="Fen, Jake, Darren"
@@ -164,6 +178,9 @@ export default function Story() {
               </Button>
             )}
           </Form>
+          <ArrowSection>
+            <ChevronDoubleDown size={30} onClick={scrollToStory} />
+          </ArrowSection>
         </BigDivision>
       </Container>
       <Container id="story-section">
@@ -183,19 +200,17 @@ export default function Story() {
           </Card>
         </StoryContainer>
       </Container>
-      <Container>
-        <BigDivision className="p-4">
+      <Container className="reverse-cards">
+        <BigDivision className="px-4 py-6">
           <Heading>Short Story Translation</Heading>
-          <p>
+          <Subtitle>
             Choose a language and have GPT-3 translate the short story for you.
-          </p>
+          </Subtitle>
 
           <Form onSubmit={onLanguageSubmit}>
-            <Form.Group>
-              <Form.Select
-                style={{ maxWidth: "40%", marginBottom: "20px" }}
-                name="language"
-              >
+            <Form.Group className="pb-3">
+              <Form.Label className="input-title">Pick a language</Form.Label>
+              <Form.Select className="w-auto" name="language">
                 {[
                   "Arabic",
                   "Bengali",

@@ -50,6 +50,21 @@ code {
   background-color: yellow !important;
 }
 
+.input-title {
+  color: rgb(184, 183, 183);
+  font-size: medium;
+}
+
+@media only screen and (max-width: 900px) {
+  .input-title {
+    font-size: small;
+  }
+
+  .reverse-cards {
+    flex-direction: column-reverse !important;
+  }
+}
+
 .page-overlay {
   background-color: #5414fb;
 }
