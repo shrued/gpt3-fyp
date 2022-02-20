@@ -42,6 +42,10 @@ export default function Story() {
     document.getElementById("story-section").scrollIntoView();
   };
 
+  const scrollToTranslator = () => {
+    document.getElementById("translator-section").scrollIntoView();
+  };
+
   const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
   const configuration = new Configuration({
     apiKey: API_KEY,
@@ -188,9 +192,10 @@ export default function Story() {
           </ArrowSection>
         </BigDivision>
       </Container>
-      <Container id="story-section">
-        <StoryContainer>
-          <Card className="my-4">
+
+      <Container className="s-container" id="story-section">
+        <StoryContainer className="my-5">
+          <Card className="my-3">
             <Card.Body>
               {storyLoading ? (
                 <>
@@ -203,9 +208,13 @@ export default function Story() {
               )}
             </Card.Body>
           </Card>
+          <ArrowSection>
+            <ChevronDoubleDown size={30} onClick={scrollToTranslator} />
+          </ArrowSection>
         </StoryContainer>
       </Container>
-      <Container className="reverse-cards">
+
+      <Container id="translator-section" className="reverse-cards">
         <BigDivision className="px-4 py-6">
           <Heading>Short Story Translation</Heading>
           <Subtitle>

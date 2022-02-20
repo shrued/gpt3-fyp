@@ -58,6 +58,10 @@ export const Subtitle = styled.p`
 
 export const StoryContainer = styled.div`
   margin: 20px;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const ArrowSection = styled.div`
