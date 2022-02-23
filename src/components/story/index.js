@@ -195,7 +195,7 @@ export default function Story() {
 
       <Container className="s-container" id="story-section">
         <StoryContainer className="my-5">
-          <Card className="my-3">
+          <Card className="my-3 response-card scroll-story">
             <Card.Body>
               {storyLoading ? (
                 <>
@@ -268,7 +268,7 @@ export default function Story() {
             </Button>
           </Form>
 
-          <Card className="my-4">
+          <Card className="my-4 response-card scroll-translation">
             <Card.Body>
               {translationLoading ? (
                 <>

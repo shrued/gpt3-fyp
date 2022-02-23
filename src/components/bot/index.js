@@ -1,11 +1,14 @@
-import { useState } from "react";
-import { Button, Card, Container, Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Card, Form } from "react-bootstrap";
 import { motion } from "framer-motion";
+import { Container } from "./bot";
 
 const { Configuration, OpenAIApi } = require("openai");
 
 export default function Bot() {
-  const [convo, setConvo] = useState([]);
+  const [convo, setConvo] = useState([
+    { from: "ai", val: "Hey there, how can I help you?" },
+  ]);
   const [input, setInput] = useState("");
   const [botResponse, setBotResponse] = useState("");
 
@@ -27,7 +30,7 @@ export default function Bot() {
 
     openai
       .createCompletion("text-davinci-001", {
-        prompt: `This is a conversation with an AI bot that suggest books: \n\n Human: ${chatDataObj.question} \n AI:`,
+        prompt: `This is a conversation with an AI bot that suggests books, movies and television: \n\n Human: ${chatDataObj.question} \n AI:`,
         temperature: 1,
         max_tokens: 1000,
         top_p: 1,
@@ -51,24 +54,25 @@ export default function Bot() {
         initial={{ y: 10 }}
         animate={{ y: 0 }}
         key={`message_${index}`}
-        // className={classnames(style.message, `${message.from === "me" ? style.me : style.ai}`)}
+        className={message.from === "me" ? "me" : "ai"}
       >
         <img
-          src={message.from === "me" ? "/me.png" : "/bot.png"}
+          src={message.from === "me" ? "/me.jpeg" : "/bot.jpeg"}
           name={message.from}
           style={{ size: 40 }}
           className="avatar"
         />
         <Card
-          background={message.from === "me" ? "gray300" : "green500"}
-          style={{ display: "flex", alignItems: "center", borderRadius: 12 }}
+          className={message.from === "me" ? "me-bubble" : "ai-bubble"}
+          style={{
+            display: "flex",
+            borderRadius: 12,
+            margin: "0.3em",
+          }}
         >
           <p
             style={{
-              marginTop: 10,
-              marginBottom: 10,
-              marginLeft: 12,
-              marginRight: 12,
+              margin: 10,
               size: 500,
             }}
           >
@@ -81,27 +85,22 @@ export default function Bot() {
 
   return (
     <>
-      <Form onSubmit={onQuestionSubmit}>
-        <Form.Group className="pb-3">
-          <Form.Label className="input-title">
-            Enter the names of your characters separated by commas
-          </Form.Label>
-          <Form.Control
-            className="w-auto"
-            type="text"
-            name="question"
-            placeholder="Question"
-          />
-        </Form.Group>
-        <Button className="buttons" type="submit" value="submit">
-          Generate
-        </Button>
-      </Form>
-      {botResponse}
       <Container>
-        <Card>
+        <Card className="chatbox">
           {convo.map((message, index) => messageItem(message, index))}
         </Card>
+        <Form className="ask" onSubmit={onQuestionSubmit}>
+          <Form.Group className="pb-6">
+            <Form.Control
+              type="text"
+              name="question"
+              placeholder="Type something..."
+            />
+          </Form.Group>
+          <Button className="ask-button mx-3" type="submit" value="submit">
+            Ask
+          </Button>
+        </Form>
       </Container>
     </>
   );
