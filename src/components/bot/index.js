@@ -25,12 +25,12 @@ export default function Bot() {
 
     setConvo((convo) => [...convo, { from: "me", val: chatDataObj.question }]);
 
-    const check = `This is a conversation with an AI bot called Aiden that suggest books: \n\n Human: ${chatDataObj.question} \n AI:`;
+    const check = `This is a conversation with an AI bot called Aiden that suggests books, movies and television: \n\n Human: ${chatDataObj.question} \n AI:`;
     console.log(check);
 
     openai
       .createCompletion("text-davinci-001", {
-        prompt: `This is a conversation with an AI bot that suggests books, movies and television: \n\n Human: ${chatDataObj.question} \n AI:`,
+        prompt: `This is a conversation with an AI bot called Aiden that suggests books, movies and television: \n\n Human: ${chatDataObj.question} \n AI:`,
         temperature: 1,
         max_tokens: 1000,
         top_p: 1,
