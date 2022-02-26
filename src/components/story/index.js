@@ -60,12 +60,12 @@ export default function Story() {
 
     setValid(true);
 
-    const check = `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names}:`;
+    const check = `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names} and give the story an appropriate title:`;
     console.log(check);
 
     openai
       .createCompletion("text-davinci-001", {
-        prompt: `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names}:`,
+        prompt: `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names} and give the story an appropriate title:`,
         temperature: 1,
         max_tokens: 1000,
         top_p: 1,
@@ -204,7 +204,11 @@ export default function Story() {
                   <Spinner animation="grow" size="sm" />{" "}
                 </>
               ) : (
-                <p>{storyResponse}</p>
+                <p>
+                  {storyResponse.split("\n\n").map((story) => (
+                    <p>{story}</p>
+                  ))}
+                </p>
               )}
             </Card.Body>
           </Card>
@@ -277,7 +281,9 @@ export default function Story() {
                   <Spinner animation="grow" size="sm" />{" "}
                 </>
               ) : (
-                <p>{translatedResponse}</p>
+                <p>
+                  <p>{translatedResponse}</p>
+                </p>
               )}
             </Card.Body>
           </Card>
