@@ -25,7 +25,7 @@ export default function Bot() {
 
     setConvo((convo) => [...convo, { from: "me", val: chatDataObj.question }]);
 
-    const check = `This is a conversation with an AI bot that suggest books: \n\n Human: ${chatDataObj.question} \n AI:`;
+    const check = `This is a conversation with an AI bot called Aiden that suggest books: \n\n Human: ${chatDataObj.question} \n AI:`;
     console.log(check);
 
     openai
