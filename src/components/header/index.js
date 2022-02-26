@@ -26,7 +26,7 @@ export default function Header() {
       <Navbar className="header-after fixed-top" variant="dark">
         <Container>
           <Nav href="#home">
-            <Nav.Link>GPT3</Nav.Link>
+            <Nav.Link>AI Den</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
