@@ -1,5 +1,5 @@
 steps:
   - name: OPENAI API KEY
-    run: echo Aiden
+    run: echo "Aiden"
     env:
       REACT_APP_OPENAI_API_KEY: ${{ secrets.REACT_APP_OPENAI_API_KEY }}
