@@ -12,6 +12,7 @@ import {
   StoryContainer,
   Subtitle,
 } from "./story";
+import Bot from "../bot";
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -26,7 +27,7 @@ export default function Story() {
   const [valid, setValid] = useState(true);
   const [translationLoading, setTranslationLoading] = useState(false);
   const [scrollChecker, setScrollChecker] = useState();
-
+  const [open, setOpen] = useState(false);
   const mountedRef = useRef();
 
   useEffect(() => {
@@ -60,12 +61,12 @@ export default function Story() {
 
     setValid(true);
 
-    const check = `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names}:`;
+    const check = `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names} and give the story an appropriate title:`;
     console.log(check);
 
     openai
       .createCompletion("text-davinci-001", {
-        prompt: `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names}:`,
+        prompt: `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names} and give the story an appropriate title:`,
         temperature: 1,
         max_tokens: 1000,
         top_p: 1,
@@ -195,7 +196,7 @@ export default function Story() {
 
       <Container className="s-container" id="story-section">
         <StoryContainer className="my-5">
-          <Card className="my-3">
+          <Card className="my-3 response-card scroll-story">
             <Card.Body>
               {storyLoading ? (
                 <>
@@ -204,7 +205,11 @@ export default function Story() {
                   <Spinner animation="grow" size="sm" />{" "}
                 </>
               ) : (
-                <p>{storyResponse}</p>
+                <p>
+                  {storyResponse.split("\n\n").map((story) => (
+                    <p>{story}</p>
+                  ))}
+                </p>
               )}
             </Card.Body>
           </Card>
@@ -268,7 +273,7 @@ export default function Story() {
             </Button>
           </Form>
 
-          <Card className="my-4">
+          <Card className="my-4 response-card scroll-translation">
             <Card.Body>
               {translationLoading ? (
                 <>
@@ -277,7 +282,9 @@ export default function Story() {
                   <Spinner animation="grow" size="sm" />{" "}
                 </>
               ) : (
-                <p>{translatedResponse}</p>
+                <p>
+                  <p>{translatedResponse}</p>
+                </p>
               )}
             </Card.Body>
           </Card>
@@ -288,6 +295,19 @@ export default function Story() {
           knows billions of words.
         </SmallDivision>
       </Container>
+      <button
+        className="bot-button"
+        style={{
+          margin: 0,
+          top: "auto",
+          right: 20,
+          bottom: 20,
+          left: "auto",
+          position: "fixed",
+        }}
+        onClick={() => (open ? setOpen(false) : setOpen(true))}
+      ></button>
+      {open ? <Bot /> : null}
     </>
   );
 }

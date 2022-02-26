@@ -15,6 +15,22 @@ code {
     monospace;
 }
 
+/* Scrollbar Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(54, 52, 52, 0.7) black;
+}
+
+/* Scrollbar Chrome, Edge, and Safari */
+body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(54, 52, 52, 0.7);
+}
+
 /* #25d29e green 48, 139, 123,
    #524857 purple 69, 54, 77
    rgb(209, 213, 12) yellowish-green
@@ -25,9 +41,41 @@ code {
   /* background-color: #0032fb; */
 }
 
-.card {
+.response-card {
   background: rgba(34, 41, 39, 0.7) !important;
   color: #f9fafb !important;
+}
+
+.scroll-story {
+  max-height: 800px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(54, 52, 52, 0.7) black;
+}
+
+.scroll-story::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scroll-story::-webkit-scrollbar-thumb {
+  background-color: rgba(54, 52, 52, 0.7);
+}
+
+.scroll-translation {
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(54, 52, 52, 0.7) black;
+}
+
+.scroll-translation::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scroll-translation::-webkit-scrollbar-thumb {
+  background-color: rgba(54, 52, 52, 0.7);
 }
 
 .navbar-dark .navbar-brand {
@@ -44,6 +92,14 @@ code {
   background-color: #1c1c1c !important;
   border: none !important;
   color: #f9fafb !important;
+}
+
+.form-control:active,
+.form-control:focus,
+.form-control:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .form-select-color {
@@ -97,4 +153,106 @@ code {
 .s-container:hover {
   box-shadow: inset 0 0 0 15px #5414fb;
   transition: box-shadow 0.4s ease-in-out;
+}
+
+.chatbox {
+  border: none !important;
+  font-size: 14px;
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(54, 52, 52, 0.7) black;
+}
+
+.chatbox::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.chatbox::-webkit-scrollbar-thumb {
+  background-color: rgba(190, 190, 190, 0.7);
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 0.3em;
+}
+
+.me {
+  display: flex;
+  flex-direction: row-reverse;
+  align-self: end;
+}
+
+.ai {
+  display: flex;
+}
+
+.ai-bubble {
+  border: none !important;
+  background: #555555 !important;
+}
+
+.me-bubble {
+  border: none !important;
+  background: #5414fb !important;
+  align-items: end;
+}
+
+.ask {
+  display: flex;
+  width: 100%;
+  background-color: #f7f7f7;
+}
+
+.ask .form-control {
+  background-color: #f7f7f7 !important;
+  color: black !important;
+  font-size: 14px !important;
+}
+
+.bot-button {
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-image: url("/public/bot.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.chat-popup {
+  top: auto;
+  margin: 0;
+  left: auto;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 80px;
+  z-index: 9;
+}
+
+.bot-icon {
+  display: block;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.send-button {
+  background-color: #f7f7f7 !important;
+  color: #9b9b9b !important;
+  border: none !important;
+}
+
+.send-button:active,
+.send-button:focus,
+.send-button:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
