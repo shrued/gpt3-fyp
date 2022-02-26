@@ -47,7 +47,7 @@ export default function Story() {
     document.getElementById("translator-section").scrollIntoView();
   };
 
-  const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
+  const API_KEY = env.REACT_APP_OPENAI_API_KEY;
   const configuration = new Configuration({
     apiKey: API_KEY,
   });
