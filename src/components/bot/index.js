@@ -90,14 +90,14 @@ export default function Bot() {
           {convo.map((message, index) => messageItem(message, index))}
         </Card>
         <Form className="ask" onSubmit={onQuestionSubmit}>
-          <Form.Group className="pb-6">
+          <Form.Group className="pb-6 chat-input">
             <Form.Control
               type="text"
               name="question"
               placeholder="Type something..."
             />
           </Form.Group>
-          <Button className="ask-button mx-3" type="submit" value="submit">
+          <Button className="mx-3" type="submit" value="submit">
             Ask
           </Button>
         </Form>

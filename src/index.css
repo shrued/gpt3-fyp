@@ -194,10 +194,18 @@ body::-webkit-scrollbar-thumb {
 
 .ask {
   display: flex;
-  width: 100%;
   justify-content: center;
+  align-items: flex-end;
+  flex-grow: 1;
+  width: 100%;
   margin: 10px;
 }
+.chat-input {
+  width: 60%;
+}
 
-.ask-button {
+@media only screen and (max-width: 900px) {
+  .ask {
+    padding-top: 20px;
+  }
 }
