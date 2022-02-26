@@ -12,6 +12,7 @@ import {
   StoryContainer,
   Subtitle,
 } from "./story";
+import Bot from "../bot";
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -26,7 +27,7 @@ export default function Story() {
   const [valid, setValid] = useState(true);
   const [translationLoading, setTranslationLoading] = useState(false);
   const [scrollChecker, setScrollChecker] = useState();
-
+  const [open, setOpen] = useState(false);
   const mountedRef = useRef();
 
   useEffect(() => {
@@ -294,6 +295,19 @@ export default function Story() {
           knows billions of words.
         </SmallDivision>
       </Container>
+      <button
+        className="bot-button"
+        style={{
+          margin: 0,
+          top: "auto",
+          right: 20,
+          bottom: 20,
+          left: "auto",
+          position: "fixed",
+        }}
+        onClick={() => (open ? setOpen(false) : setOpen(true))}
+      ></button>
+      {open ? <Bot /> : null}
     </>
   );
 }
