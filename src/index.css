@@ -287,6 +287,18 @@ body::-webkit-scrollbar-thumb {
 }
 
 .popover {
-  right: -15% !important;
+  right: 0 !important;
+  margin: 10px !important;
   left: auto !important;
+  width: 50% !important;
+  position: fixed !important;
+  background-color: #5414fb !important;
+}
+
+.popover-arrow {
+  display: none !important;
+}
+
+.popover-body {
+  color: #f9fafb !important;
 }
