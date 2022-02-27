@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Button, Card, Form, Spinner } from "react-bootstrap";
+import { Button, Card, Form, Modal, Spinner } from "react-bootstrap";
 import { ChevronDoubleDown } from "react-bootstrap-icons";
 import validator from "validator";
 import {
@@ -8,11 +8,13 @@ import {
   BigText,
   Container,
   Heading,
+  ResponseContainer,
   SmallDivision,
   StoryContainer,
   Subtitle,
 } from "./story";
 import Bot from "../bot";
+import Synonymizer from "../synonymizer";
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -24,10 +26,11 @@ export default function Story() {
     "Your translated short story will show up here."
   );
   const [storyLoading, setStoryLoading] = useState(false);
-  const [valid, setValid] = useState(true);
   const [translationLoading, setTranslationLoading] = useState(false);
   const [scrollChecker, setScrollChecker] = useState();
   const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [showSynonymizer, setShowSynonymizer] = useState(false);
   const mountedRef = useRef();
 
   useEffect(() => {
@@ -59,11 +62,6 @@ export default function Story() {
     const genreData = new FormData(e.target),
       genreDataObj = Object.fromEntries(genreData.entries());
 
-    setValid(true);
-
-    const check = `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names} and give the story an appropriate title:`;
-    console.log(check);
-
     openai
       .createCompletion("text-davinci-001", {
         prompt: `Write a ${genreDataObj.genre} short story with ${genreDataObj.characters} characters named ${genreDataObj.names} and give the story an appropriate title:`,
@@ -78,6 +76,7 @@ export default function Story() {
         setStoryResponse(response.data.choices[0].text);
         setStoryLoading(false);
         setScrollChecker(true);
+        setEdit(true);
       });
   };
 
@@ -88,9 +87,6 @@ export default function Story() {
       languageDataObj = Object.fromEntries(languageData.entries());
 
     const theStory = "#" + validator.trim(storyResponse) + "#";
-
-    const check = `Translate to ${languageDataObj.language}:\n\n${theStory}`;
-    console.log(check);
 
     openai
       .createCompletion("text-davinci-001", {
@@ -176,7 +172,7 @@ export default function Story() {
               </Form.Text>
             </Form.Group>
 
-            <Button className="buttons" type="submit" value="submit">
+            <Button type="submit" value="submit">
               Generate{" "}
               {storyLoading ? (
                 <Spinner
@@ -197,6 +193,26 @@ export default function Story() {
       <Container className="s-container" id="story-section">
         <StoryContainer className="my-5">
           <Card className="my-3 response-card scroll-story">
+            {edit ? (
+              <Button
+                className="edit-button"
+                style={{
+                  margin: 5,
+                }}
+                onClick={() => setShowSynonymizer(true)}
+              >
+                Edit
+              </Button>
+            ) : null}
+            <Modal
+              show={showSynonymizer}
+              onHide={() => setShowSynonymizer(false)}
+              size="lg"
+              dialogClassName="modal-90w"
+              className="synonymizer"
+            >
+              <Synonymizer story={storyResponse} />
+            </Modal>
             <Card.Body>
               {storyLoading ? (
                 <>
@@ -252,7 +268,6 @@ export default function Story() {
               </Form.Select>
             </Form.Group>
             <Button
-              className="buttons"
               type="submit"
               value="submit"
               disabled={

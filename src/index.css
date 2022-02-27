@@ -48,6 +48,10 @@ body::-webkit-scrollbar-thumb {
   box-shadow: #5414fb !important;
 }
 
+.btn-close {
+  filter: brightness(0) invert(1) !important;
+}
+
 .response-card {
   background: rgba(34, 41, 39, 0.7) !important;
   color: #f9fafb !important;
@@ -263,4 +267,26 @@ body::-webkit-scrollbar-thumb {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+}
+
+.edit-button {
+  width: 5%;
+  right: 0;
+  position: absolute;
+}
+
+@media only screen and (max-width: 900px) {
+  .edit-button {
+    width: 20%;
+  }
+}
+
+.modal-content {
+  background-color: #030508 !important;
+  width: 90% !important;
+}
+
+.popover {
+  right: -15% !important;
+  left: auto !important;
 }
