@@ -302,3 +302,7 @@ body::-webkit-scrollbar-thumb {
 .popover-body {
   color: #f9fafb !important;
 }
+
+.modal-body p::selection {
+  background: #5414fb;
+}
