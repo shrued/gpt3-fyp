@@ -37,6 +37,17 @@ body::-webkit-scrollbar-thumb {
    rgba(35, 156, 158, 0.75) dark teal
    */
 
+.btn-primary {
+  background-color: #5414fb !important;
+  border: #5414fb !important;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
+  box-shadow: #5414fb !important;
+}
+
 .response-card {
   background: rgba(34, 41, 39, 0.7) !important;
   color: #f9fafb !important;
